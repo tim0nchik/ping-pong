@@ -36,7 +36,21 @@ class Player(Gamesprite):
         if keys[self.key_up] and self.rect.y >= 0:
             self.rect.y -= self.speed
     
+class Ball(Gamesprite):
+    def __init__(self, image_, x, y, width, height, speed):
+        super().__init__(image_, x, y, width, height, speed)
+        self.speed.x = speed
+        self.speed.y = speed
 
+    def update(self):
+        self.rect.x += self.speed.x
+        self.rect.y += self.speed.y
+
+        if self.rect.y <= 0 or self.rect.y >= WINDOW_HEIGHT- self.rect.height:
+            self.rect.y *= -1
+        
+
+platforms = sprite.Group()
 
 while game:
     for e in event.get():
