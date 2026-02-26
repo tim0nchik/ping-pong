@@ -22,8 +22,20 @@ class Gamesprite(sprite.Sprite):
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
+class Player(Gamesprite):
+    def __init__(self, image_, x, y, width, height, speed, key_up, key_down):
+        super().__init__(image_, x, y, width, height, speed)
+        self.key_up = key_up
+        self.key_down = key_down
 
-
+    def update(self):
+        keys = key.get_pressed()
+        
+        if keys[self.key_down] and self.rect.y <= WINDOW_HEIGHT-self.rect.height:
+            self.rect.y += self.speed
+        if keys[self.key_up] and self.rect.y >= 0:
+            self.rect.y -= self.speed
+    
 
 
 while game:
