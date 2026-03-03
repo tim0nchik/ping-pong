@@ -50,13 +50,19 @@ class Ball(Gamesprite):
             self.rect.y *= -1
         
 
-platforms = sprite.Group()
+# platforms = sprite.Group()
+
+# platform1 = Player('player-left.png',20,100, 50, 100, 5, K_w, K_s)
+# platfotm2 = Player('player-right.png',800,100, 50, 100, 5, K_UP, K_DOWN)
+# platforms.add(platform1, platfotm2)
 
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
     window.fill((255,255,255))
+    # platforms.draw(window)
+
 
     display.update()
     timer.tick(60)
