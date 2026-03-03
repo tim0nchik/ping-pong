@@ -39,30 +39,40 @@ class Player(Gamesprite):
 class Ball(Gamesprite):
     def __init__(self, image_, x, y, width, height, speed):
         super().__init__(image_, x, y, width, height, speed)
-        self.speed.x = speed
-        self.speed.y = speed
+        self.speed_x = speed
+        self.speed_y = speed
 
     def update(self):
-        self.rect.x += self.speed.x
-        self.rect.y += self.speed.y
+        self.rect.x += self.speed_x
+        self.rect.y += self.speed_y
 
         if self.rect.y <= 0 or self.rect.y >= WINDOW_HEIGHT- self.rect.height:
-            self.rect.y *= -1
+            self.speed_y *= -1
         
 
-# platforms = sprite.Group()
+platforms = sprite.Group()
 
-# platform1 = Player('player-left.png',20,100, 50, 100, 5, K_w, K_s)
-# platfotm2 = Player('player-right.png',800,100, 50, 100, 5, K_UP, K_DOWN)
-# platforms.add(platform1, platfotm2)
+platform1 = Player('player-left.png',20,300, 50, 200, 5, K_w, K_s)
+platfotm2 = Player('player-right.png',830,300, 50, 200, 5, K_UP, K_DOWN)
+platforms.add(platform1, platfotm2)
+
+ball = Ball('ball.png', 400, 350, 100, 100, 5)
 
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
     window.fill((255,255,255))
-    # platforms.draw(window)
-
+    platforms.draw(window)
+    platforms.update()
+    ball.reset()
+    if sprite.spritecollide(ball, platforms, False):
+        ball.speed_x *= -1
+        ball.speed_x *= 1.05
+        ball.speed_y *= 1.05
+    
+    platforms.update()
+    ball.update()
 
     display.update()
     timer.tick(60)
